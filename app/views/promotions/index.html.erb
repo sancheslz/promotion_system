@@ -1,0 +1,17 @@
+<% if @promotions.blank? %>
+
+    <div>
+        No promotions founded
+    </div>
+
+<% else %>
+
+    <% @promotions.each do |promotion| %>
+        <div>
+        <%= link_to  promotion.name, promotion %>
+        </div>
+    <% end %>
+
+<% end %>
+
+<%= link_to  "Home", root_path %>

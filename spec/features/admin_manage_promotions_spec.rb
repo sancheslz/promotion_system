@@ -61,7 +61,7 @@ feature('Admin can see promotions') do
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
-        click_om 'Return'
+        click_on 'Return'
 
         # Assert
         expect(current_path).to eq(promotions_path) 
