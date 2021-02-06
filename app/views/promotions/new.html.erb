@@ -1,0 +1,7 @@
+<% if @promotion.errors.any? %>
+    <% @promotion.errors.full_messages.each do |msg| %>
+        <%= msg%>
+    <% end %>
+<% end %>
+
+<%= render "form" %>

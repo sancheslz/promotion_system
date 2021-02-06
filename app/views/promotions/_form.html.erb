@@ -1,0 +1,30 @@
+<%= form_with(model: @promotion, local: true) do |f| %>
+    <p>
+        <%= f.label(:name) %>
+        <%= f.text_field(:name) %>
+    </p>
+    <p>
+        <%= f.label(:description) %>
+        <%= f.text_field(:description) %>
+    </p>
+    <p>
+        <%= f.label(:code) %>
+        <%= f.text_field(:code) %>
+    </p>
+    <p>
+        <%= f.label(:discount_rate) %>
+        <%= f.text_field(:discount_rate) %>
+    </p>
+    <p>
+        <%= f.label(:coupon_quantity, 'Quantity') %>
+        <%= f.text_field(:coupon_quantity) %>
+    </p>
+    <p>
+        <%= f.label(:expiration_date) %>
+        <%= f.text_field(:expiration_date) %>
+    </p>
+
+    <%= f.submit 'Create Promotion' %>
+<% end %>
+
+<%= link_to  "Cancel", promotions_path %>

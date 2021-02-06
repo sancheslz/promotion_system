@@ -163,7 +163,7 @@ feature('Admin adds promotions') do
         click_button 'Create Promotion'
         
         # Assert
-        expect(page).to have_content('code must be unique')
+        expect(page).to have_content('Code must be unique')
 
     end
 
@@ -186,7 +186,7 @@ feature('Admin adds promotions') do
         promotion = Promotion.last
 
         # Assert
-        expect(current_path).to be(promotion_path(promotion))
+        expect(current_path).to eq(promotion_path(promotion))
 
     end
 
@@ -200,8 +200,8 @@ feature('Admin adds promotions') do
         click_on 'Cancel'
         
         # Assert
-        expect(current_path).to be(promotions_path)
+        expect(current_path).to eq(promotions_path)
 
     end
-    
+
 end
