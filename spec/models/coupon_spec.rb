@@ -21,7 +21,7 @@ describe "Coupon" do
       )
 
       #  Act
-      coupon = Coupon.create!(
+      coupon = Coupon.new(
         code: 'BLACK50-0002',
         promotion_id: promotion.id
       )
