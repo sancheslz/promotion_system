@@ -16,7 +16,12 @@
 <hr>
 
 <% @promotion.coupons.each do |coupon| %>
-    <div>
+    <div id="coupon_code_<%= coupon.id %>">
         <%= coupon.code %>
+        <% if coupon.inactive? %>
+        (Inactive)
+        <% else %>
+            <%= link_to  "Inactivate", inactivate_coupon_path(coupon) %>
+        <% end %>
     </div>
 <% end %>

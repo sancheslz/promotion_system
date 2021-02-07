@@ -5,4 +5,9 @@ Rails.application.routes.draw do
     get 'delete', on: :member
     get 'generate_coupons', on: :member
   end
+  
+  resources :coupons, only: %i[] do
+    get 'inactivate', on: :member
+  end
+  
 end

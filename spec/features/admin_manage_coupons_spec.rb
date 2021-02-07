@@ -144,7 +144,6 @@ feature('Admin inactivate coupons') do
         visit root_path
         click_on 'Promotions'
         click_on promotion.name 
-        click_on 'Generate Coupons'
 
         # Assert
         within("#coupon_code_#{coupon.id}") do
