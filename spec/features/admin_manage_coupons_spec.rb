@@ -208,3 +208,99 @@ feature('Admin inactivate coupons') do
     end
 
 end
+
+feature('Admin reactivate coupons') do
+    
+    scenario('can do it') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 10,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        
+        coupon = Coupon.create!(
+            code: 'BLACK50-0001',
+            promotion: promotion
+        )
+
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name 
+        within("#coupon_code_#{coupon.id}") do
+            click_on "Inactivate"
+        end
+
+        # Assert
+        within("#coupon_code_#{coupon.id}") do
+            expect(page).to have_link('Activate')
+        end
+    end
+    
+    scenario('with success') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 10,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        
+        coupon = Coupon.create!(
+            code: 'BLACK50-0001',
+            promotion: promotion
+        )
+
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name 
+        within("#coupon_code_#{coupon.id}") do
+            click_on "Inactivate"
+            click_on 'Activate'
+        end
+
+        # Assert
+        within("#coupon_code_#{coupon.id}") do
+            expect(page).not_to have_content('Inactive') 
+        end
+    end
+    
+    scenario('can\'t activate again') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 10,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        
+        coupon = Coupon.create!(
+            code: 'BLACK50-0001',
+            promotion: promotion
+        )
+
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name 
+        within("#coupon_code_#{coupon.id}") do
+            click_on "Inactivate"
+            click_on 'Activate'
+        end
+
+        # Assert
+        within("#coupon_code_#{coupon.id}") do
+            expect(page).not_to have_link('Activate')
+        end
+    end
+
+end
