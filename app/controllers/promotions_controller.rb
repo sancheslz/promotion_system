@@ -20,6 +20,20 @@ class PromotionsController < ApplicationController
         end
     end
 
+    def edit
+        @promotion = Promotion.find(params[:id])
+    end
+
+    def update
+        @promotion = Promotion.find(params[:id])
+        @promotion.update(allowed_params)
+        if @promotion.save
+            redirect_to promotion_path(@promotion)
+        else
+            render :edit
+        end
+    end
+
     private
     def allowed_params
         params.require(:promotion).permit(

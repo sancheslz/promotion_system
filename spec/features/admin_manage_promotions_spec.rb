@@ -225,7 +225,7 @@ feature('Admin edits a promotion') do
         click_on 'Edit Promotion'
         
         # Assert
-        expect(current_path).to eq(edit_promotion_path)
+        expect(current_path).to eq(edit_promotion_path(promotion))
     end
 
     scenario('can\'t let blanked field') do
