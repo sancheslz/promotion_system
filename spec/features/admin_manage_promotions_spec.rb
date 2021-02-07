@@ -205,3 +205,137 @@ feature('Admin adds promotions') do
     end
 
 end
+
+feature('Admin edits a promotion') do
+    
+    scenario('can do it') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name
+        click_on 'Edit Promotion'
+        
+        # Assert
+        expect(current_path).to eq(edit_promotion_path)
+    end
+
+    scenario('can\'t let blanked field') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name
+        click_on 'Edit Promotion'
+
+        fill_in 'Name', with: ''
+        fill_in 'Description', with: ''
+        fill_in 'Code', with: ''
+        fill_in 'Discount', with: ''
+        fill_in 'Quantity', with: ''
+        fill_in 'Expiration', with: ''
+        click_button 'Update Promotion'
+
+        # Assert
+        expect(page).to have_content('can\'t be blank', count: 5)
+    end
+
+    scenario('neither uses an existing code') do
+        # Arrange
+        Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        promotion = Promotion.create!(
+            name: 'Super Black Friday',
+            description: 'Amazing Black Friday',
+            code: 'SBLACK',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name
+        click_on 'Edit Promotion'
+
+        fill_in 'Code', with: 'BLACK50'
+        click_on 'Update Promotion'
+
+        # Assert
+        expect(page).to have_content('must be unique')
+    end
+
+    scenario('sees the promotion edited') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name
+        click_on 'Edit Promotion'
+
+        fill_in 'Name', with: 'Super Black Friday'
+        click_on 'Update Promotion'
+
+        # Assert
+        expect(current_path).to eq(promotion_path(promotion))
+        expect(page).to have_content(promotion.reload.name)
+        expect(page).to have_content(promotion.reload.code)
+    end
+
+    scenario('can cancel the operation') do
+        # Arrange
+        promotion = Promotion.create!(
+            name: 'Black Friday',
+            description: 'Super Black Friday',
+            code: 'BLACK50',
+            discount_rate: 50,
+            coupon_quantity: 100,
+            expiration_date: Time.now.strftime('%d/%m/%Y')
+        )
+        # Act
+        visit root_path
+        click_on 'Promotions'
+        click_on promotion.name
+        click_on 'Edit Promotion'
+
+        # Assert
+        fill_in 'Name', with: 'Super Black Friday'
+        click_on 'Cancel'
+
+        # Assert
+        expect(current_path).to eq(promotion_path(promotion))
+        expect(page).to have_content(promotion.name)
+
+    end
+
+end
