@@ -34,6 +34,16 @@ class PromotionsController < ApplicationController
         end
     end
 
+    def delete 
+        @promotion = Promotion.find(params[:id])
+    end
+
+    def destroy
+        @promotion = Promotion.find(params[:id])
+        @promotion.delete
+        redirect_to promotions_path
+    end
+
     private
     def allowed_params
         params.require(:promotion).permit(

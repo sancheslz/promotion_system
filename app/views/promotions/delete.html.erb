@@ -1,0 +1,6 @@
+<div>
+Do you really want to delete this promotion?
+</div>
+
+<%= link_to  "Cancel", promotion_path(@promotion) %>
+<%= link_to  "Confirm", promotion_path(@promotion), {method: :delete} %>
