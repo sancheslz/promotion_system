@@ -41,10 +41,10 @@ feature('Admin generates coupons') do
 
         # Assert
         expect(page).to have_content('Coupons generated with success')
-        expect(page).to have_content("#{prootion.code}-0001")
-        expect(page).to have_content("#{prootion.code}-0100")
-        expect(page).not_to have_content("#{prootion.code}-0101")
-        expect(page).to have_content("#{prootion.code}-", count: promotion.coupon_quantity)
+        expect(page).to have_content("#{promotion.code}-0001")
+        expect(page).to have_content("#{promotion.code}-0100")
+        expect(page).not_to have_content("#{promotion.code}-0101")
+        expect(page).to have_content("#{promotion.code}-", count: promotion.coupon_quantity)
     end
     
     scenario('can\'t generate again') do
@@ -57,6 +57,7 @@ feature('Admin generates coupons') do
             coupon_quantity: 100,
             expiration_date: Time.now.strftime('%d/%m/%Y')
         )
+        promotion.generate_coupons!
         
         # Act
         visit root_path
@@ -65,8 +66,8 @@ feature('Admin generates coupons') do
         click_on 'Generate Coupons'
 
         # Assert
-        expect(page).to have_content('can\'t generate again') 
-        expect(page).to have_content("#{prootion.code}-", count: promotion.coupon_quantity)
+        expect(page).to have_content('Can\'t generate again') 
+        expect(page).to have_content("#{promotion.code}-", count: promotion.coupon_quantity)
     end
     
     scenario('neither change the Promotion code') do
@@ -112,7 +113,7 @@ feature('Admin generates coupons') do
         click_on promotion.name
         click_on 'Edit Promotion'
         
-        fill_in 'Quantidy', with: '20'
+        fill_in 'Quantity', with: '20'
         click_on 'Update Promotion'
 
         # Assert

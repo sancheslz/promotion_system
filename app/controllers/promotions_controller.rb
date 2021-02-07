@@ -44,6 +44,16 @@ class PromotionsController < ApplicationController
         redirect_to promotions_path
     end
 
+    def generate_coupons
+        @promotion = Promotion.find(params[:id])
+        if @promotion.generate_coupons!
+            flash[:notice] = 'Coupons generated with success'
+        else
+            flash[:notice] = 'Can\'t generate again'
+        end
+        redirect_to promotion_path(@promotion.reload)
+    end
+
     private
     def allowed_params
         params.require(:promotion).permit(

@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :promotions, only: %i[index show new create edit update destroy] do
     get 'delete', on: :member
+    get 'generate_coupons', on: :member
   end
 end

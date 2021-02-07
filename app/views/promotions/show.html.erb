@@ -1,3 +1,6 @@
+<div>
+    <%= flash[:notice] %>
+</div>
 <%= @promotion.name %>
 <%= @promotion.description %>
 <%= @promotion.code %>
@@ -8,3 +11,12 @@
 <%= link_to  "Return", promotions_path %>
 <%= link_to  "Edit Promotion", edit_promotion_path(@promotion) %>
 <%= link_to  "Delete Promotion", delete_promotion_path(@promotion) %>
+<%= link_to  "Generate Coupons", generate_coupons_promotion_path(@promotion) %>
+
+<hr>
+
+<% @promotion.coupons.each do |coupon| %>
+    <div>
+        <%= coupon.code %>
+    </div>
+<% end %>
