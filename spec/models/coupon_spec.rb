@@ -15,6 +15,11 @@ describe "Coupon" do
         expiration_date: Time.now.strftime('%d/%m/%Y')
       )
 
+      Coupon.create!(
+        code: 'BLACK50-0002',
+        promotion_id: promotion.id
+      )
+
       #  Act
       coupon = Coupon.create!(
         code: 'BLACK50-0002',
