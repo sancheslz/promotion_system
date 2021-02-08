@@ -93,3 +93,77 @@ feature('User with credentials') do
     end
 
 end
+
+feature('New user can sign up') do
+
+    scenario('can do it') do
+        # Arrange
+
+        # Act
+        visit root_path
+
+        # Assert
+        expect(page).to have_link('Register')
+    end
+
+    scenario('and see the form') do
+        # Arrange
+
+        # Act
+        visit root_path
+        click_on 'Register'
+
+        # Assert
+        expect(current_path).to eq(new_user_registration_path)
+    end
+
+    scenario('email can\'t be blank') do
+        # Arrange
+
+        # Act
+        visit root_path
+        click_on 'Register'
+        fill_in "Email", with: ""
+        fill_in "Password", with: "u1s2e3r4"
+        fill_in "Password Confirmation", with: "u1s2e3r4"
+        click_on "Sign up"
+
+        # Assert
+        expect(page).to have_content('can\'t be blank') 
+    end
+
+    scenario('email must be unique') do
+        # Arrange
+        User.create!(
+            email: 'user@host.com',
+            password: 'a1b2c3d4'
+        )
+
+        # Act
+        visit root_path
+        click_on 'Register'
+        fill_in "Email", with: "user@host.com"
+        fill_in "Password", with: "u1s2e3r4"
+        fill_in "Password Confirmation", with: "u1s2e3r4"
+        click_on "Sign up"
+
+        # Assert
+        expect(page).to have_content('must be unique') 
+    end
+
+    scenario('register with success') do
+        # Arrange
+
+        # Act
+        visit root_path
+        click_on 'Register'
+        fill_in "Email", with: "user@host.com"
+        fill_in "Password", with: "u1s2e3r4"
+        fill_in "Password Confirmation", with: "u1s2e3r4"
+        click_on "Sign up"
+
+        # Assert
+        expect(page).to have_content('created with success') 
+    end
+
+end
