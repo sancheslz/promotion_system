@@ -125,7 +125,7 @@ feature('New user can sign up') do
         click_on 'Register'
         fill_in "Email", with: ""
         fill_in "Password", with: "u1s2e3r4"
-        fill_in "Password Confirmation", with: "u1s2e3r4"
+        fill_in "Password confirmation", with: "u1s2e3r4"
         click_on "Sign up"
 
         # Assert
@@ -144,11 +144,11 @@ feature('New user can sign up') do
         click_on 'Register'
         fill_in "Email", with: "user@host.com"
         fill_in "Password", with: "u1s2e3r4"
-        fill_in "Password Confirmation", with: "u1s2e3r4"
+        fill_in "Password confirmation", with: "u1s2e3r4"
         click_on "Sign up"
 
         # Assert
-        expect(page).to have_content('must be unique') 
+        expect(page).to have_content('has already been taken') 
     end
 
     scenario('register with success') do
@@ -159,11 +159,11 @@ feature('New user can sign up') do
         click_on 'Register'
         fill_in "Email", with: "user@host.com"
         fill_in "Password", with: "u1s2e3r4"
-        fill_in "Password Confirmation", with: "u1s2e3r4"
+        fill_in "Password confirmation", with: "u1s2e3r4"
         click_on "Sign up"
 
         # Assert
-        expect(page).to have_content('created with success') 
+        expect(page).to have_link('Logout') 
     end
 
 end
