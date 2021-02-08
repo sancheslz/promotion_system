@@ -20,6 +20,7 @@
         <%= coupon.code %>
         <% if coupon.inactive? %>
         (Inactive)
+        <%= link_to  "Activate", activate_coupon_path(coupon) %>
         <% else %>
             <%= link_to  "Inactivate", inactivate_coupon_path(coupon) %>
         <% end %>

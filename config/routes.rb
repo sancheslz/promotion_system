@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   resources :coupons, only: %i[] do
     get 'inactivate', on: :member
+    get 'activate', on: :member
   end
   
 end
