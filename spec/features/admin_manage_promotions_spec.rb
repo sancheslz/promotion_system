@@ -2,6 +2,22 @@ require 'rails_helper'
 
 feature('Admin can see promotions') do
 
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
+
     scenario('successfully') do
         # Arrange
         promotion = Promotion.create!(
@@ -105,6 +121,22 @@ end
 
 feature('Admin adds promotions') do
 
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
+
     scenario('can register it') do
         # Arrange
 
@@ -207,6 +239,22 @@ feature('Admin adds promotions') do
 end
 
 feature('Admin edits a promotion') do
+
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
     
     scenario('can do it') do
         # Arrange
@@ -341,6 +389,22 @@ feature('Admin edits a promotion') do
 end
 
 feature('Admin deletes a promotion') do
+
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
     
     scenario('can do it') do
         # Arrange

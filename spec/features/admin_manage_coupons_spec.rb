@@ -1,7 +1,23 @@
 require 'rails_helper'
 
 feature('Admin generates coupons') do
-    
+
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
+
     scenario('can do it') do
         # Arrange
         promotion = Promotion.create!(
@@ -124,6 +140,22 @@ end
 
 feature('Admin inactivate coupons') do
 
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
+
     scenario('can do it') do
         # Arrange
         promotion = Promotion.create!(
@@ -210,6 +242,22 @@ feature('Admin inactivate coupons') do
 end
 
 feature('Admin reactivate coupons') do
+
+    before :each do
+        # Arrange
+        user = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        # Act
+        visit root_path 
+        click_on 'Login'
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password 
+        click_on 'Log in'
+    end
     
     scenario('can do it') do
         # Arrange
