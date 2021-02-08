@@ -6,7 +6,7 @@ feature('User with credentials') do
         # Arrange
         user = User.create!(
             email: 'user@host.com',
-            passwd: 'u1s2e3r4'
+            password: 'u1s2e3r4'
         )
 
         # Act
@@ -20,7 +20,7 @@ feature('User with credentials') do
         # Arrange
         user = User.create!(
             email: 'user@host.com',
-            passwd: 'u1s2e3r4'
+            password: 'u1s2e3r4'
         )
 
         # Act
@@ -29,23 +29,23 @@ feature('User with credentials') do
 
         # Assert
         expect(current_path).to eq(new_user_session_path)
-        expect(page).to have_button('Enter')
+        expect(page).to have_button('Log in')
     end
 
     scenario('do login') do
         # Arrange
         user = User.create!(
             email: 'user@host.com',
-            passwd: 'u1s2e3r4'
+            password: 'u1s2e3r4'
         )
 
         # Act
         visit root_path
         click_on 'Login'
         
-        fill_in 'E-mail', user.email
-        fill_in 'Password', user.passwd
-        click_on 'Enter'
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_on 'Log in'
 
         # Assert
         expect(current_path).to eq(root_path)
@@ -56,12 +56,16 @@ feature('User with credentials') do
         # Arrange
         user = User.create!(
             email: 'user@host.com',
-            passwd: 'u1s2e3r4'
+            password: 'u1s2e3r4'
         )
-        sign_in user
 
         # Act
         visit root_path
+        click_on 'Login'
+        
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_on 'Log in'
 
         # Assert
         expect(page).to have_content('Logout')
@@ -71,12 +75,16 @@ feature('User with credentials') do
         # Arrange
         user = User.create!(
             email: 'user@host.com',
-            passwd: 'u1s2e3r4'
+            password: 'u1s2e3r4'
         )
-        sign_in user
 
         # Act
         visit root_path
+        click_on 'Login'
+        
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_on 'Log in'
         click_on 'Logout'
 
         # Assert
