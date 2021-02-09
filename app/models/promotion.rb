@@ -15,7 +15,7 @@ class Promotion < ApplicationRecord
     end
     
     def generate_coupons!
-        if self.coupons.blank?
+        if self.coupons.blank? && self.approved == true
             
             Coupon.transaction do
                 

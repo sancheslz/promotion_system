@@ -46,7 +46,8 @@ feature('Admin generates coupons') do
             discount_rate: 50,
             coupon_quantity: 100,
             expiration_date: Time.now.strftime('%d/%m/%Y'),
-            user: creator
+            user: creator,
+            approved: true
         )
         
         # Act
@@ -79,7 +80,8 @@ feature('Admin generates coupons') do
             discount_rate: 50,
             coupon_quantity: 100,
             expiration_date: Time.now.strftime('%d/%m/%Y'),
-            user: creator
+            user: creator,
+            approved: true
         )
         promotion.generate_coupons!
         
@@ -110,7 +112,8 @@ feature('Admin generates coupons') do
             discount_rate: 50,
             coupon_quantity: 100,
             expiration_date: Time.now.strftime('%d/%m/%Y'),
-            user: creator
+            user: creator,
+            approved: true
         )
         promotion.generate_coupons!
         
@@ -143,7 +146,8 @@ feature('Admin generates coupons') do
             discount_rate: 50,
             coupon_quantity: 100,
             expiration_date: Time.now.strftime('%d/%m/%Y'),
-            user: creator
+            user: creator,
+            approved: true
         )
         promotion.generate_coupons!
         
