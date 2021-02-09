@@ -38,4 +38,18 @@ class Promotion < ApplicationRecord
 
     end
 
+    def approve!(current_user)
+        new_approve(current_user)
+    end
+
+    private 
+    def new_approve(current_user)
+        PromotionApproval.create!(
+            promotion: self,
+            user: current_user,
+        )
+        self.approved = true
+        self.save
+    end
+
 end
