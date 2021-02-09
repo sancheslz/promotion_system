@@ -10,6 +10,10 @@
 <%= @promotion.user.email %>
 <% if @promotion.approved %>
 Approved Promotion
+<div>
+Approved by: <%= @promotion.approved_by %>
+Approved at: <%= @promotion.approved_at %>
+</div>
 <% else %>
 Waiting to Approve
 <% end %>

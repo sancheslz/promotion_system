@@ -237,6 +237,7 @@ feature('Display who approved') do
         login_as approver, :scope => :user
         visit root_path 
         click_on 'Promotions'
+        click_on promotion.name
         click_on 'Approve Promotion'
         promotion.reload
 
@@ -272,7 +273,7 @@ feature('Display who approved') do
         login_as approver, :scope => :user
         visit root_path 
         click_on 'Promotions'
-        click_on 'Approve Promotion'
+        click_on promotion.name
         promotion.reload
 
         # Assert

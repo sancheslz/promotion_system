@@ -42,6 +42,16 @@ class Promotion < ApplicationRecord
         new_approve(current_user)
     end
 
+    def approved_by
+        @approval = PromotionApproval.find_by(promotion: self)
+        @approval&.user&.email
+    end
+
+    def approved_at
+        @approval = PromotionApproval.find_by(promotion: self)
+        @approval&.created_at
+    end
+
     private 
     def new_approve(current_user)
         PromotionApproval.create!(
