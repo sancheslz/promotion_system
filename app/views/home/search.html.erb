@@ -1,0 +1,12 @@
+<h1>Search Results</h1>
+<% if @results.any? %>
+    <% @results.each do |result| %>
+        <div>
+            <%= link_to result.name, result %>
+        </div>
+    <% end %>
+<% else %>
+    <div>
+    No promotions founded
+    </div>
+<% end %>

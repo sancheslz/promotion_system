@@ -79,7 +79,7 @@ feature('Admin search for promotions') do
 
         # Assert
         expect(page).not_to have_content(promotion.name)
-        expect(page).not_to have_content('No promotions found')
+        expect(page).to have_content('No promotions founded')
     end
 
 end
