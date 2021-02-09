@@ -9,18 +9,17 @@ feature('Creator can\'t approve') do
             password: '@creator123'
         )
         
-        promotion = Promotion.new(
+        promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         login_as creator, :scope => :user
-        promotion.save
-        promotion.reload
 
         # Act
         visit root_path
@@ -40,18 +39,17 @@ feature('Creator can\'t approve') do
             password: '@creator123'
         )
         
-        promotion = Promotion.new(
+        promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         login_as creator, :scope => :user
-        promotion.save
-        promotion.reload
 
         # Act
         visit root_path
@@ -76,20 +74,17 @@ feature('Creator can\'t approve') do
             password: '@approver123'
         )
         
-        promotion = Promotion.new(
+        promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
-        login_as creator, :scope => :user
-        promotion.save
-        promotion.reload
-        logout creator
-        login_as approver
+        login_as approver, :scope => :user
         
         # Act
         visit root_path
@@ -114,20 +109,17 @@ feature('Creator can\'t approve') do
             password: '@approver123'
         )
         
-        promotion = Promotion.new(
+        promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
-        login_as creator, :scope => :user
-        promotion.save
-        promotion.reload
-        logout creator
-        login_as approver
+        login_as approver, :scope => :user
         
         # Act
         visit root_path

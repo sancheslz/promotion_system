@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :promotions, only: %i[index show new create edit update destroy] do
     get 'delete', on: :member
     get 'generate_coupons', on: :member
+    get 'approve', on: :member
   end
   
   resources :coupons, only: %i[] do

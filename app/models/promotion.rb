@@ -4,6 +4,7 @@ class Promotion < ApplicationRecord
     validate :can_updade_code?, on: :update
     validate :can_updade_quantity?, on: :update
     has_many :coupons
+    belongs_to :user
 
     def can_updade_code?
         self.coupons.blank? ? true : errors.add(:code, 'can\'t change the code')

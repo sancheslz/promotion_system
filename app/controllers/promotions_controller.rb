@@ -16,6 +16,7 @@ class PromotionsController < ApplicationController
 
     def create
         @promotion = Promotion.new(allowed_params)
+        @promotion.user = current_user
         if @promotion.save
             redirect_to promotion_path(@promotion)
         else
@@ -57,7 +58,26 @@ class PromotionsController < ApplicationController
         redirect_to promotion_path(@promotion.reload)
     end
 
+    def approve 
+        @promotion = Promotion.find(params[:id])
+        if @promotion.user != current_user
+            new_approve(@promotion, current_user)
+            redirect_to promotion_path(@promotion.reload)
+        else
+            redirect_to promotion_path(@promotion)
+        end
+    end
+
     private
+    def new_approve(promotion, current_user)
+        PromotionApproval.create!(
+            promotion: promotion,
+            user: current_user,
+        )
+        promotion.approved = true
+        promotion.save
+    end
+
     def allowed_params
         params.require(:promotion).permit(
             :name,
