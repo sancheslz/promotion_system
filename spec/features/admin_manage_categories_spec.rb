@@ -64,7 +64,7 @@ feature('Admin registers a category') do
         click_on 'New Category'
 
         # Assert
-        expect(current_path).to eq(new_categoty_path)
+        expect(current_path).to eq(new_category_path)
     end
     
     scenario('fields can\'t be blank') do
@@ -73,12 +73,12 @@ feature('Admin registers a category') do
         # Act
         visit root_path
         click_on 'Categories'
-        click_on 'Create Category'
+        click_on 'New Category'
 
         fill_in 'Name', with: ''
         fill_in 'Code', with: ''
         click_on 'Create Category'
-
+        
         # Assert
         expect(page).to have_content('can\'t be blank') 
     end
@@ -93,7 +93,7 @@ feature('Admin registers a category') do
         # Act
         visit root_path
         click_on 'Categories'
-        click_on 'Create Category'
+        click_on 'New Category'
 
         fill_in 'Name', with: 'Computers'
         fill_in 'Code', with: 'ELEKTON'
@@ -109,7 +109,7 @@ feature('Admin registers a category') do
         # Act
         visit root_path
         click_on 'Categories'
-        click_on 'Create Category'
+        click_on 'New Category'
 
         fill_in 'Name', with: 'Electronics'
         fill_in 'Code', with: 'ELEKTON'
@@ -127,7 +127,7 @@ feature('Admin registers a category') do
         # Act
         visit root_path
         click_on 'Categories'
-        click_on 'Create Category'
+        click_on 'New Category'
         click_on 'Cancel'
         
         # Assert

@@ -11,5 +11,7 @@ Rails.application.routes.draw do
     get 'inactivate', on: :member
     get 'activate', on: :member
   end
+
+  resources :categories, only: %i[index show new create edit update]
   
 end
