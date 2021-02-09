@@ -2,24 +2,13 @@ require 'rails_helper'
 
 feature('Admin can see promotions') do
 
-    before :each do
+    scenario('successfully') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
-
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-
-    scenario('successfully') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -27,9 +16,11 @@ feature('Admin can see promotions') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
 
@@ -40,6 +31,11 @@ feature('Admin can see promotions') do
 
     scenario('with its details') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -47,9 +43,11 @@ feature('Admin can see promotions') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -65,6 +63,11 @@ feature('Admin can see promotions') do
     
     scenario('and returns to promotions page') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -72,9 +75,11 @@ feature('Admin can see promotions') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -86,6 +91,11 @@ feature('Admin can see promotions') do
     
     scenario('and returns to homepage') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -93,9 +103,11 @@ feature('Admin can see promotions') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -108,8 +120,14 @@ feature('Admin can see promotions') do
     
     scenario('or a message if no promotions') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
 
@@ -121,26 +139,16 @@ end
 
 feature('Admin adds promotions') do
 
-    before :each do
+    scenario('can register it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
-
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-
-    scenario('can register it') do
-        # Arrange
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on 'New Promotion'
@@ -151,8 +159,14 @@ feature('Admin adds promotions') do
 
     scenario('attributes can\'t be blank') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on 'New Promotion'
@@ -172,6 +186,11 @@ feature('Admin adds promotions') do
 
     scenario('code must be unique') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -179,9 +198,11 @@ feature('Admin adds promotions') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on 'New Promotion'
@@ -201,8 +222,14 @@ feature('Admin adds promotions') do
 
     scenario('successfully') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on 'New Promotion'
@@ -224,8 +251,14 @@ feature('Admin adds promotions') do
 
     scenario('can cancel the operation') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on 'New Promotion'
@@ -239,34 +272,25 @@ feature('Admin adds promotions') do
 end
 
 feature('Admin edits a promotion') do
-
-    before :each do
+    
+    scenario('can do it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
-
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-    
-    scenario('can do it') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -278,15 +302,22 @@ feature('Admin edits a promotion') do
 
     scenario('can\'t let blanked field') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -306,13 +337,19 @@ feature('Admin edits a promotion') do
 
     scenario('neither uses an existing code') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         promotion = Promotion.create!(
             name: 'Super Black Friday',
@@ -320,9 +357,11 @@ feature('Admin edits a promotion') do
             code: 'SBLACK',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -337,15 +376,22 @@ feature('Admin edits a promotion') do
 
     scenario('sees the promotion edited') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -362,15 +408,22 @@ feature('Admin edits a promotion') do
 
     scenario('can cancel the operation') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -389,25 +442,14 @@ feature('Admin edits a promotion') do
 end
 
 feature('Admin deletes a promotion') do
-
-    before :each do
+    
+    scenario('can do it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
-
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-    
-    scenario('can do it') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -415,9 +457,11 @@ feature('Admin deletes a promotion') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -428,6 +472,11 @@ feature('Admin deletes a promotion') do
 
     scenario('have an alert message') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -435,9 +484,11 @@ feature('Admin deletes a promotion') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -449,6 +500,11 @@ feature('Admin deletes a promotion') do
 
     scenario('delete successfully') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -456,9 +512,11 @@ feature('Admin deletes a promotion') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name
@@ -472,6 +530,11 @@ feature('Admin deletes a promotion') do
 
     scenario('can cancel the operation') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super promotion of Black Friday',
@@ -479,9 +542,11 @@ feature('Admin deletes a promotion') do
             discount_rate: '50',
             coupon_quantity: '100',
             expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
 
         # Act
+        login_as creator, :scope => :user
         visit root_path
         click_on 'Promotions'
         click_on promotion.name

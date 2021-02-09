@@ -2,31 +2,23 @@ require 'rails_helper'
 
 feature('Admin generates coupons') do
 
-    before :each do
+    scenario('can do it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
+        login_as creator, :scope => :user
 
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-
-    scenario('can do it') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         # Act
@@ -40,13 +32,21 @@ feature('Admin generates coupons') do
     
     scenario('with success') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         # Act
@@ -65,13 +65,21 @@ feature('Admin generates coupons') do
     
     scenario('can\'t generate again') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         promotion.generate_coupons!
         
@@ -88,13 +96,21 @@ feature('Admin generates coupons') do
     
     scenario('neither change the Promotion code') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         promotion.generate_coupons!
         
@@ -113,13 +129,21 @@ feature('Admin generates coupons') do
     
     scenario('neither change the Promotion quantity') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 100,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         promotion.generate_coupons!
         
@@ -140,31 +164,23 @@ end
 
 feature('Admin inactivate coupons') do
 
-    before :each do
+    scenario('can do it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
+        login_as creator, :scope => :user
 
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-
-    scenario('can do it') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(
@@ -185,13 +201,21 @@ feature('Admin inactivate coupons') do
 
     scenario('with success') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(
@@ -212,13 +236,21 @@ feature('Admin inactivate coupons') do
 
     scenario('can\'t inactivate again') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(
@@ -242,32 +274,24 @@ feature('Admin inactivate coupons') do
 end
 
 feature('Admin reactivate coupons') do
-
-    before :each do
+    
+    scenario('can do it') do
         # Arrange
-        user = User.create!(
+        creator = User.create!(
             email: 'user@host.com',
             password: 'u1s2e3r4'
         )
 
-        # Act
-        visit root_path 
-        click_on 'Login'
+        login_as creator, :scope => :user
 
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password 
-        click_on 'Log in'
-    end
-    
-    scenario('can do it') do
-        # Arrange
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(
@@ -291,13 +315,21 @@ feature('Admin reactivate coupons') do
     
     scenario('with success') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(
@@ -322,13 +354,21 @@ feature('Admin reactivate coupons') do
     
     scenario('can\'t activate again') do
         # Arrange
+        creator = User.create!(
+            email: 'user@host.com',
+            password: 'u1s2e3r4'
+        )
+
+        login_as creator, :scope => :user
+
         promotion = Promotion.create!(
             name: 'Black Friday',
             description: 'Super Black Friday',
             code: 'BLACK50',
             discount_rate: 50,
             coupon_quantity: 10,
-            expiration_date: Time.now.strftime('%d/%m/%Y')
+            expiration_date: Time.now.strftime('%d/%m/%Y'),
+            user: creator
         )
         
         coupon = Coupon.create!(

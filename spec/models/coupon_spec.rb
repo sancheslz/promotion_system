@@ -6,13 +6,19 @@ describe "Coupon" do
 
     it "code must be unique" do
       # Arrange
+      creator = User.create!(
+        email: 'user@host.com',
+        password: 'u1s2e3r4'
+      )
+
       promotion = Promotion.create!(
         name: 'Black Friday',
         description: 'Super Black Friday',
         code: 'BLACK50',
         discount_rate: 50,
         coupon_quantity: 100,
-        expiration_date: Time.now.strftime('%d/%m/%Y')
+        expiration_date: Time.now.strftime('%d/%m/%Y'),
+        user: creator
       )
 
       Coupon.create!(
